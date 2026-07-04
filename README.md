@@ -2,7 +2,7 @@
 
 PhoneBank is a responsive front-end web application for buying, selling, and grading refurbished smartphones and accessories. It provides a clean and modern shopping experience with product filtering, device grading, and detailed product information.
 **Home Page:**
-![Home Page](Screenshot 2026-07-04 at 21.30.12.png)
+![Home Page](Screenshot2026-07-04at21.30.12.png)
 
 This project was developed using HTML, CSS, and JavaScript to demonstrate front-end web development skills, responsive design, and interactive user interfaces.
 Click here for Live Demo https://poonam160498.github.io/Phonebank/
