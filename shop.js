@@ -155,6 +155,7 @@ function openModal(brand, model) {
   const p = STOCK.find(x => x.brand === brand && x.model === model);
   if (!p) return;
 
+ window._reservingProduct = `${p.brand} ${p.model} (${p.storage}) — £${p.price}`;
   document.getElementById("modal-image").src = p.image;
 
   const specsHtml = p.specs
@@ -183,24 +184,38 @@ function openModal(brand, model) {
 
 function showReserveForm() {
   document.getElementById("reserve-area").innerHTML = `
-    <div style="background:#f5f5f7; padding:16px; border-radius:12px;">
+    <form name="reservations" method="POST" data-netlify="true" onsubmit="return handleReserve(event)" style="background:#f5f5f7; padding:16px; border-radius:12px;">
+      <input type="hidden" name="form-name" value="reservations">
+      <input type="hidden" name="product" value="${(window._reservingProduct || '').replace(/"/g,'&quot;')}">
       <label style="font-size:.85rem; font-weight:600;">Your name</label>
-      <input id="rsv-name" type="text" style="width:100%; padding:12px; margin:6px 0 12px; border:1px solid #ddd; border-radius:8px;">
+      <input name="name" id="rsv-name" type="text" required style="width:100%; padding:12px; margin:6px 0 12px; border:1px solid #ddd; border-radius:8px;">
       <label style="font-size:.85rem; font-weight:600;">Email or phone</label>
-      <input id="rsv-contact" type="text" style="width:100%; padding:12px; margin:6px 0 14px; border:1px solid #ddd; border-radius:8px;">
-      <button onclick="confirmReserve()" style="width:100%; padding:14px; background:#0a7d33; color:#fff; border:none; border-radius:10px; font-weight:700; cursor:pointer;">Confirm reservation</button>
-    </div>`;
+      <input name="contact" id="rsv-contact" type="text" required style="width:100%; padding:12px; margin:6px 0 14px; border:1px solid #ddd; border-radius:8px;">
+      <button type="submit" style="width:100%; padding:14px; background:#0a7d33; color:#fff; border:none; border-radius:10px; font-weight:700; cursor:pointer;">Confirm reservation</button>
+    </form>`;
 }
 
-function confirmReserve() {
-  const name = document.getElementById("rsv-name").value.trim();
-  if (!name) { document.getElementById("rsv-name").style.border = "1px solid #d00"; return; }
-  document.getElementById("reserve-area").innerHTML = `
-    <div style="background:#eafaf0; border:1px solid #b7e4c7; padding:20px; border-radius:12px; text-align:center;">
-      <p style="font-size:1.4rem; margin-bottom:6px;">✅ Reserved, ${name}!</p>
-      <p style="font-size:.9rem; color:#444;">We're holding it for 48 hours at The Branch, High Street, Exeter. Pay when you collect — after we walk you through the grade, on the counter.</p>
-      <p style="font-size:.75rem; color:#999; margin-top:10px;">(Concept demo — no real reservation is made.)</p>
-    </div>`;
+function handleReserve(e) {
+  e.preventDefault();
+  const form = e.target;
+  const name = form.name.value.trim();
+  if (!name) return false;
+
+  fetch("/", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams(new FormData(form)).toString()
+  }).then(() => {
+    document.getElementById("reserve-area").innerHTML = `
+      <div style="background:#eafaf0; border:1px solid #b7e4c7; padding:20px; border-radius:12px; text-align:center;">
+        <p style="font-size:1.4rem; margin-bottom:6px;">✅ Reserved, ${name}!</p>
+        <p style="font-size:.9rem; color:#444;">We're holding it for 48 hours at The Branch, High Street, Exeter. Pay when you collect.</p>
+        <p style="font-size:.75rem; color:#999; margin-top:10px;">(Concept demo — submission logged to the store inbox.)</p>
+      </div>`;
+  }).catch(() => {
+    document.getElementById("reserve-area").innerHTML = `<p style="text-align:center; color:#d00; padding:20px;">Something went wrong — please try again.</p>`;
+  });
+  return false;
 }
 
 function closeModal() {
