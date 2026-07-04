@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Secure Checkout — PhoneBank</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="index.html" style="font-weight:700; font-size:1.15rem;">Phone<span style="color:#0a66ff;">Bank</span></a>
+      <nav style="display:flex; gap:28px; align-items:center;">
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="sell.html">Sell</a>
+        <a href="grading.html">Grading</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section style="padding-top:160px; padding-bottom:80px;">
+      <div class="container" style="max-width:900px; display:flex; flex-wrap:wrap; gap:48px;">
+        
+        <div style="flex: 1; min-width: 300px;">
+          <h1 style="font-size:2rem; margin-bottom:24px;">Checkout.</h1>
+          
+          <form id="checkout-form">
+            <h3 style="margin-bottom:16px;">Contact Details</h3>
+            <input type="email" placeholder="Email address" required style="width:100%; padding:14px; margin-bottom:16px; border:1px solid #d2d2d7; border-radius:10px; font-size:1rem;">
+            
+            <h3 style="margin:24px 0 16px;">Delivery</h3>
+            <div style="display:flex; gap:16px; margin-bottom:16px;">
+              <input type="text" placeholder="First Name" required style="width:100%; padding:14px; border:1px solid #d2d2d7; border-radius:10px; font-size:1rem;">
+              <input type="text" placeholder="Last Name" required style="width:100%; padding:14px; border:1px solid #d2d2d7; border-radius:10px; font-size:1rem;">
+            </div>
+            <input type="text" placeholder="Full Address" required style="width:100%; padding:14px; margin-bottom:16px; border:1px solid #d2d2d7; border-radius:10px; font-size:1rem;">
+            
+            <h3 style="margin:24px 0 16px;">Payment Method</h3>
+            <div style="padding:20px; border:1px solid #d2d2d7; border-radius:10px; background:#fafafa;">
+              <label style="display:flex; align-items:center; gap:12px; margin-bottom:16px; font-weight:600;">
+                <input type="radio" name="payment" checked> Credit / Debit Card
+              </label>
+              <input type="text" placeholder="Card Number (0000 0000 0000 0000)" required pattern="[0-9]{16}" style="width:100%; padding:14px; margin-bottom:16px; border:1px solid #d2d2d7; border-radius:8px; font-size:1rem;">
+              <div style="display:flex; gap:16px;">
+                <input type="text" placeholder="Expiry (MM/YY)" required style="width:100%; padding:14px; border:1px solid #d2d2d7; border-radius:8px; font-size:1rem;">
+                <input type="text" placeholder="CVC" required style="width:100%; padding:14px; border:1px solid #d2d2d7; border-radius:8px; font-size:1rem;">
+              </div>
+            </div>
+
+            <button type="submit" id="pay-btn" class="btn btn-primary" style="width:100%; margin-top:32px; padding:16px; font-size:1.1rem;">Pay £729.00 securely</button>
+          </form>
+        </div>
+
+        <div style="width: 350px; background:var(--surface); padding:32px; border-radius:16px; height:fit-content;">
+          <h3 style="margin-bottom:24px;">Order Summary</h3>
+          
+          <div style="display:flex; justify-content:space-between; margin-bottom:16px; border-bottom:1px solid #eee; padding-bottom:16px;">
+            <div>
+              <p style="font-weight:600; margin:0;">Apple iPhone 15 Pro</p>
+              <p style="font-size:.85rem; color:#666; margin:4px 0 0;">256GB · Grade A</p>
+            </div>
+            <p style="font-weight:600;">£729.00</p>
+          </div>
+
+          <div style="display:flex; justify-content:space-between; margin-bottom:16px; color:#666;">
+            <p>Subtotal</p>
+            <p>£729.00</p>
+          </div>
+          <div style="display:flex; justify-content:space-between; margin-bottom:16px; color:#666;">
+            <p>Next Day Delivery</p>
+            <p>Free</p>
+          </div>
+          
+          <div style="display:flex; justify-content:space-between; margin-top:24px; border-top:2px solid #ddd; padding-top:16px;">
+            <p style="font-size:1.2rem; font-weight:700; color:var(--ink);">Total</p>
+            <p style="font-size:1.2rem; font-weight:700; color:var(--ink);">£729.00</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <div id="success-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:999; justify-content:center; align-items:center;">
+      <div style="background:#fff; padding:48px; border-radius:16px; text-align:center; max-width:400px; box-shadow:0 24px 48px rgba(0,0,0,0.2);">
+        <div style="font-size:4rem; margin-bottom:16px;"><div id="success-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:999; justify-content:center; align-items:center;">
+      <div style="background:#fff; padding:48px; border-radius:16px; text-align:center; max-width:400px; box-shadow:0 24px 48px rgba(0,0,0,0.2);">
+        
+        <div class="success-animation" style="margin-bottom: 24px;">
+          <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+            <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
+            <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+          </svg>
+        </div>
+        <h2 style="margin-bottom:8px;">Payment Successful!</h2>
+        <p style="color:#666; margin-bottom:24px;">Your order has been confirmed. You will receive an email shortly with your tracking details.</p>
+        <a href="index.html" class="btn btn-primary" style="width:100%;">Return to Home</a>
+      </div>
+    </div></div>
+        <h2 style="margin-bottom:8px;">Payment Successful!</h2>
+        <p style="color:#666; margin-bottom:24px;">Your order has been confirmed. You will receive an email shortly with your tracking details.</p>
+        <a href="index.html" class="btn btn-primary" style="width:100%;">Return to Home</a>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/checkout.js"></script>
+</body>
+</html>
